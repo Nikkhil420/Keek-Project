@@ -1,9 +1,10 @@
 import React from 'react'
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 const Demo = () => {
   return (
     <div>
-        demo
+        <AccountBalanceIcon/>
     </div>
   )
 }
