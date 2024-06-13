@@ -1,11 +1,12 @@
 import React from 'react'
-import Demo from '../Components/Demo';
+import LoginPage from '../Components/LoginPage';
+
 
 const MainComponent = () => {
   return (
-    <div>
+    <div className=''>
 
-        <Demo/>
+     <LoginPage/>
 
     </div>
   )
