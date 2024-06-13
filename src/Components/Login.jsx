@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import rectangle from "../Assets/Login_images/Rectangle.png";
 import { FaMobileAlt } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
@@ -9,19 +8,19 @@ import { Key } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import LoginCarousel from "../Components/LoginSignUpPage/LoginCarousel/LoginCarousel";
 
-
 const Login = () => {
-  const [shoPass, setShowPass] = useState(false)
-  let slides = ["https://www.searchenginejournal.com/wp-content/uploads/2022/09/influencer-marketing2-631aeb9e3273a-sej.png",
+  const [shoPass, setShowPass] = useState(false);
+  let slides = [
+    "https://www.searchenginejournal.com/wp-content/uploads/2022/09/influencer-marketing2-631aeb9e3273a-sej.png",
     "https://cdn.i.haymarketmedia.asia/?n=campaign-india%2Fcontent%2Finfluencer+india.jpg&h=570&w=855&q=100&v=20170226&c=1",
-   "https://agencynetwork.org/assets/upload/article/835112326202038253232_6393005ccc516923b883acee_Influencer-Marketing.jpg"
-  ]
+    "https://agencynetwork.org/assets/upload/article/835112326202038253232_6393005ccc516923b883acee_Influencer-Marketing.jpg",
+  ];
   return (
     <>
       <div className="flex flex-row h-[100vh] relative">
         {/* carausal panel */}
         <div className="h-screen w-[100%] relative">
-          <LoginCarousel slides={slides} autoSlide={true}/>
+          <LoginCarousel slides={slides} autoSlide={true} />
         </div>
         {/* login panel */}
         <div className="h-screen mx-16 w-1/2 text-start">
@@ -34,10 +33,12 @@ const Login = () => {
             <FcGoogle className="inline-block text-[20px]" /> Continue with
             google
           </button>
-          <button className="w-full border rounded-md my-2 py-2 active:bg-blue-600 active:text-white">
-            <FaMobileAlt className="inline-block mx-2 text-lg opacity-50" />
-            Continue with mobile number
-          </button>
+          <Link to="/Login_Mobile">
+            <button className="w-full border rounded-md my-2 py-2 active:bg-blue-600 active:text-white">
+              <FaMobileAlt className="inline-block mx-2 text-lg opacity-50" />
+              Continue with mobile number
+            </button>
+          </Link>
           <div className="flex text-sm items-center opacity-50">
             <hr className="w-1/2" /> <span className="p-4">OR</span>
             <hr className="w-1/2" />

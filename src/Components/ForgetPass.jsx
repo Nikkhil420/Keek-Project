@@ -1,5 +1,4 @@
 import { CiMail } from 'react-icons/ci';
-import Rectangle from '../Assets/Login_images/Rectangle.png';
 import React from 'react'
 import { Link } from 'react-router-dom';
 import LoginCarousel from './LoginSignUpPage/LoginCarousel/LoginCarousel';

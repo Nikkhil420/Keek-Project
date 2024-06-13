@@ -2,7 +2,7 @@ import { useState, useEffect} from "react";
 
 export default function LoginCarousel({ slides ,
    autoSlide = false,
-  autoSlideInterval = 1000})
+  autoSlideInterval = 5000})
    {
     const [curr, setCurr] = useState(0)
 
@@ -15,7 +15,7 @@ export default function LoginCarousel({ slides ,
     if (!autoSlide) return
     const slideInterval = setInterval(next, autoSlideInterval)
     return () => clearInterval(slideInterval)
-  }, [])
+  },[])
 
   return (
     <div className="overflow-hidden relative bg-black  ">
