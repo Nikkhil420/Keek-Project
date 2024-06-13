@@ -83,9 +83,9 @@ const SignUp = () => {
     <div className="h-screen w-[100%] relative">
       <LoginCarousel slides={slides} autoSlide={true} />
     </div>
-        <div className="w-full md:w-1/2 p-4">
+        <div className=" mx-16 h-screen w-1/2 p-4">
           <h2 className="text-2xl font-bold mb-4 text-left text-blue-500">Keek</h2>
-          <div className="flex flex-col space-y-4 mb-6">
+          <div className="flex flex-col space-y-2 mb-6">
             <Button
               variant="outlined"
               className="flex items-center justify-center w-full text-gray-700"
@@ -100,8 +100,8 @@ const SignUp = () => {
               Continue with Mobile Number
             </Button>
           </div>
-          {error && <p className="text-red-500 mb-4">{error}</p>}
-          {success && <p className="text-green-500 mb-4">{success}</p>}
+          {error && <p className="text-red-500 mb-2">{error}</p>}
+          {success && <p className="text-green-500 mb-2">{success}</p>}
           <form onSubmit={handleSubmit}>
             <div className="mb-1">
               <label className="block text-left text-gray-700 mb-2" htmlFor="username">
@@ -150,7 +150,7 @@ const SignUp = () => {
                 />
               </div>
             </div>
-            <div className="mb-6">
+            <div className="mb-2">
               <label className="block text-left text-gray-700 mb-2" htmlFor="password">
                 Password
               </label>
@@ -183,7 +183,7 @@ const SignUp = () => {
                   required
                 />
               </div>
-              <div className="mt-0  ">
+              <div className="mt-2 flex flex-column ">
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -213,7 +213,7 @@ const SignUp = () => {
                       disabled
                     />
                   }
-                  label="Minimum 8 characters"
+                  label="Min 8 Characters"
                 />
               </div>
             </div>
@@ -244,7 +244,7 @@ const SignUp = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition mb-2 duration-200"
+              className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition mt-2 mb-2 duration-200"
             >
               Sign Up
             </button>
