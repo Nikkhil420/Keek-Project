@@ -2,21 +2,20 @@ import { CiMail } from 'react-icons/ci';
 import Rectangle from '../Assets/Login_images/Rectangle.png';
 import React from 'react'
 import { Link } from 'react-router-dom';
+import LoginCarousel from './LoginSignUpPage/LoginCarousel/LoginCarousel';
 
 const ForgetPass = () => {
+  let slides = ["https://www.searchenginejournal.com/wp-content/uploads/2022/09/influencer-marketing2-631aeb9e3273a-sej.png",
+    "https://cdn.i.haymarketmedia.asia/?n=campaign-india%2Fcontent%2Finfluencer+india.jpg&h=570&w=855&q=100&v=20170226&c=1",
+   "https://agencynetwork.org/assets/upload/article/835112326202038253232_6393005ccc516923b883acee_Influencer-Marketing.jpg"
+  ]
   return (
     <>
       <div className="flex flex-row h-[100vh] justify-center items-center">
         {/* carausal panel */}
         <div className="h-screen w-[100%] relative">
-          <img className="h-screen w-full" src={Rectangle} alt="" />
-          <div className="text-start absolute left-44 bottom-10">
-            <h2 className="text-2xl font-semibold w-full">
-              Hire your favourite influencers from <br /> trending social media
-              platforms <br /> easily with
-              <span className="text-blue-600">keek</span>
-            </h2>
-          </div>
+          
+        <LoginCarousel slides={slides} autoSlide={true}/>
         </div>
         {/* login panel */}
         <div className="mx-16 w-1/2 text-start items-center">
