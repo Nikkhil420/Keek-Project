@@ -16,6 +16,7 @@ const ForgetPass = () => {
           
         <LoginCarousel slides={slides} autoSlide={true}/>
         </div>
+        
         {/* login panel */}
         <div className="mx-16 w-1/2 text-start items-center">
           <h1 className="text-5xl font-bold text-blue-600 font-serif mt-8">

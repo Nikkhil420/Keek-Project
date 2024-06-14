@@ -6,6 +6,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { FcGoogle } from 'react-icons/fc';
 import LoginCarousel from "../Components/LoginSignUpPage/LoginCarousel/LoginCarousel";
 import { Link } from "react-router-dom";
+import { FaMobileAlt } from "react-icons/fa";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -83,19 +84,25 @@ const SignUp = () => {
     <div className="h-screen w-[100%] relative">
       <LoginCarousel slides={slides} autoSlide={true} />
     </div>
-        <div className="w-full md:w-1/2 p-4">
-          <h2 className="text-2xl font-bold mb-4 text-left text-blue-500">Keek</h2>
+        <div className="w-full md:w-[61%] p-10">
+          <h2 className="text-5xl font-bold mb-4 text-left text-blue-600 font-serif  ">Keek</h2>
           <div className="flex flex-col space-y-4 mb-6">
             <Button
               variant="outlined"
-              className="flex items-center justify-center w-full text-gray-700"
+              className="flex items-center justify-center w-full "
               startIcon={<FcGoogle />}
+              style={{color:"black" , border :"1px solid lightgrey"
+
+              }}
             >
               Continue with Google
             </Button>
             <Button
+              startIcon={<FaMobileAlt  style={{color:"grey"}} />  }
               variant="outlined"
-              className="flex items-center justify-center w-full text-gray-700"
+              className="flex items-center justify-center w-full "
+              style={{color:"black" , border :"1px solid lightgrey"}}
+
             >
               Continue with Mobile Number
             </Button>
@@ -112,6 +119,7 @@ const SignUp = () => {
                   id="username"
                   name="username"
                   variant="outlined"
+                  placeholder='John Doe'
                   fullWidth
                   value={formData.username}
                   onChange={handleChange}
@@ -135,6 +143,7 @@ const SignUp = () => {
                   id="email"
                   name="email"
                   type="email"
+                  placeholder='john.doe@gmail.com'
                   variant="outlined"
                   fullWidth
                   value={formData.email}
@@ -150,13 +159,14 @@ const SignUp = () => {
                 />
               </div>
             </div>
-            <div className="mb-6">
+            <div className="mb-2">
               <label className="block text-left text-gray-700 mb-2" htmlFor="password">
                 Password
               </label>
               <div className="relative">
                 <TextField
                   id="password"
+                  placeholder='Password'
                   name="password"
                   type={formData.showPassword ? 'text' : 'password'}
                   variant="outlined"
@@ -187,6 +197,7 @@ const SignUp = () => {
                 <FormControlLabel
                   control={
                     <Checkbox
+                        // style={{ color:"green"}}
                       checked={formData.uppercase}
                       className={formData.uppercase ? 'text-green-500' : ''}
                       disabled
@@ -223,6 +234,7 @@ const SignUp = () => {
               </label>
               <div className="relative">
                 <TextField
+                  placeholder='Password'
                   id="confirmPassword"
                   name="confirmPassword"
                   type={formData.showPassword ? 'text' : 'password'}
@@ -244,7 +256,7 @@ const SignUp = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition mb-2 duration-200"
+              className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-600 transition mb-2 duration-200"
             >
               Sign Up
             </button>
