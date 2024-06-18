@@ -13,6 +13,9 @@ import { FcGoogle } from "react-icons/fc";
 import LoginCarousel from "../Components/LoginSignUpPage/LoginCarousel/LoginCarousel";
 import { Link } from "react-router-dom";
 import { FaMobileAlt } from "react-icons/fa";
+import { IoEyeOutline } from "react-icons/io5";
+import { BsEyeSlash } from "react-icons/bs";
+import { FiKey } from "react-icons/fi";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -29,6 +32,11 @@ const SignUp = () => {
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [showOtp, setShowOtp] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [generatedOtp, setGeneratedOtp] = useState("");
+  const [isVerified, setIsVerified] = useState(false); // State to track OTP verification status
 
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
@@ -73,9 +81,47 @@ const SignUp = () => {
     });
   };
 
+  const handleEmailChange = (e) => {
+    const { value } = e.target;
+    setFormData({
+      ...formData,
+      email: value,
+    });
+    // Enable Send OTP button if email is valid
+    // For simplicity, checking if value includes "@" as a basic validation
+    setOtpSent(false); // Reset OTP status
+    setIsVerified(false); // Reset verification status
+  };
+
+  const sendOtp = () => {
+    // Simulate sending OTP (generate OTP and send to email logic)
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    console.log("Generated OTP:", otp);
+    setGeneratedOtp(otp);
+    setOtpSent(true); // Set OTP sent status to true
+
+    alert(`OTP sent to ${formData.email}: ${otp}`);
+  };
+
+  const handleOtpChange = (e) => {
+    setOtp(e.target.value);
+  };
+
+  const verifyOtp = () => {
+    const isOtpValid = otp === generatedOtp;
+    setIsVerified(isOtpValid);
+    return isOtpValid;
+  };
+
+  let slides = [
+    "https://www.searchenginejournal.com/wp-content/uploads/2022/09/influencer-marketing2-631aeb9e3273a-sej.png",
+    "https://cdn.i.haymarketmedia.asia/?n=campaign-india%2Fcontent%2Finfluencer+india.jpg&h=570&w=855&q=100&v=20170226&c=1",
+    "https://agencynetwork.org/assets/upload/article/835112326202038253232_6393005ccc516923b883acee_Influencer-Marketing.jpg",
+  ];
+
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     if (
       formData.username === "" ||
       formData.email === "" ||
@@ -84,45 +130,56 @@ const SignUp = () => {
     ) {
       setError("All fields are required.");
       setSuccess("");
-  
+
       setTimeout(() => {
         setError("");
       }, 2000);
-  
+
       return;
     }
-  
+
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match.");
       setSuccess("");
-  
+
       setTimeout(() => {
         setError("");
       }, 2000);
-  
+
       return;
     }
-  
+
     if (!formData.uppercase || !formData.numbers || !formData.minLength) {
       setError("Password does not meet the required criteria.");
       setSuccess("");
-  
+
+      setTimeout(() => {
+        setError("");
+      }, 4000);
+
+      return;
+    }
+
+    if (!isVerified) {
+      setError("Please verify OTP first.");
+      setSuccess("");
+
       setTimeout(() => {
         setError("");
       }, 2000);
-  
+
       return;
     }
-  
+
     // Perform sign-up logic here
-  
+
     // Simulating sign-up success after 1 second
     setSuccess("Sign up successful!");
-  
+
     setTimeout(() => {
       setSuccess("");
-    }, 2000);
-  
+    }, 4000);
+
     setError("");
     setFormData({
       username: "",
@@ -136,13 +193,6 @@ const SignUp = () => {
       minLength: false,
     });
   };
-  
-
-  let slides = [
-    "https://www.searchenginejournal.com/wp-content/uploads/2022/09/influencer-marketing2-631aeb9e3273a-sej.png",
-    "https://cdn.i.haymarketmedia.asia/?n=campaign-india%2Fcontent%2Finfluencer+india.jpg&h=570&w=855&q=100&v=20170226&c=1",
-    "https://agencynetwork.org/assets/upload/article/835112326202038253232_6393005ccc516923b883acee_Influencer-Marketing.jpg",
-  ];
 
   return (
     <div className="flex flex-row h-[100vh] relative">
@@ -164,14 +214,14 @@ const SignUp = () => {
             Continue with Google
           </Button>
           <Link to={"/Login_Mobile"}>
-          <Button
-            startIcon={<FaMobileAlt style={{ color: "grey" }} />}
-            variant="outlined"
-            className="flex items-center justify-center w-full"
-            style={{ color: "black", border: "1px solid lightgrey" }}
-          >
-            Continue with Mobile Number
-          </Button>
+            <Button
+              startIcon={<FaMobileAlt style={{ color: "grey" }} />}
+              variant="outlined"
+              className="flex items-center justify-center w-full"
+              style={{ color: "black", border: "1px solid lightgrey" }}
+            >
+              Continue with Mobile Number
+            </Button>
           </Link>
         </div>
         {error && <p className="text-red-500 mb-2">{error}</p>}
@@ -208,11 +258,15 @@ const SignUp = () => {
             </div>
           </div>
           <div className="mb-1">
-            <label className="block text-left text-gray-700 mb-2" htmlFor="email">
+            <label
+              className="block text-left text-gray-700 mb-2"
+              htmlFor="email"
+            >
               Email
             </label>
-            <div className="relative">
+            <div className={`relative  `}>
               <TextField
+              className={`${isVerified ? "border-green-800" : ""}`}
                 size="small"
                 id="email"
                 name="email"
@@ -221,9 +275,7 @@ const SignUp = () => {
                 variant="outlined"
                 fullWidth
                 value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
+                onChange={handleEmailChange}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -232,9 +284,67 @@ const SignUp = () => {
                   ),
                 }}
                 required
+                disabled={otpSent}
               />
+              <button
+                onClick={sendOtp}
+                className={`absolute inset-y-0 right-0 px-4 flex items-center border-l border-gray-300 opacity-50  ${formData.email &&
+                  !otpSent &&
+                  "opacity-100"}`}
+                disabled={!formData.email || otpSent}
+              >
+                Send OTP
+              </button>
+            </div>
+
+            <div className="my-2">
+              <label
+                className="block text-left text-gray-700 mb-2"
+                htmlFor="verifyOTP"
+              >
+                Verify OTP
+              </label>
+              <div className={`relative ${isVerified ? "border-green-300" : ""}`}>
+                <input
+                  className={`border-2 rounded-md pl-10 w-full py-2 ${
+                    isVerified ? "border-green-900" : "border-red-900"
+                  }`}
+                  type={`${showOtp ? "text" : "password"}`}
+                  placeholder="Enter OTP"
+                  value={otp}
+                  onChange={handleOtpChange}
+                  disabled={!otpSent}
+                />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiKey className="rotate-90 opacity-50" />
+                </div>
+                <div
+                  onClick={() => {
+                    setShowOtp(!showOtp);
+                  }}
+                  className="absolute inset-y-0 right-20 pl-3 flex items-center cursor-pointer"
+                >
+                  {showOtp ? (
+                    <BsEyeSlash className="text-2xl opacity-50" />
+                  ) : (
+                    <IoEyeOutline className="text-2xl opacity-50" />
+                  )}
+                </div>
+                <button
+                  onClick={verifyOtp}
+                  className={`absolute inset-y-0 right-0 px-4 flex items-center border-l border-gray-300 opacity-50 ${otp &&
+                     otpSent &&
+                    "opacity-100"} ${
+                    otp === generatedOtp ? "border-green  " : "border-red"
+                  }`}
+                  disabled={!otp || isVerified}
+                >
+                  Verify
+                </button>
+              </div>
             </div>
           </div>
+
           <div className="mb-2">
             <label
               className="block text-left text-gray-700 mb-2"
@@ -275,7 +385,9 @@ const SignUp = () => {
                 control={
                   <Checkbox
                     checked={formData.uppercase}
-                    style={{ color: formData.uppercase ? "green" : "gray" }}
+                    style={{
+                      color: formData.uppercase ? "green" : "gray",
+                    }}
                     disabled
                   />
                 }
@@ -285,7 +397,9 @@ const SignUp = () => {
                 control={
                   <Checkbox
                     checked={formData.numbers}
-                    style={{ color: formData.numbers ? "green" : "gray" }}
+                    style={{
+                      color: formData.numbers ? "green" : "gray",
+                    }}
                     disabled
                   />
                 }
@@ -295,7 +409,9 @@ const SignUp = () => {
                 control={
                   <Checkbox
                     checked={formData.minLength}
-                    style={{ color: formData.minLength ? "green" : "gray" }}
+                    style={{
+                      color: formData.minLength ? "green" : "gray",
+                    }}
                     disabled
                   />
                 }
@@ -329,8 +445,15 @@ const SignUp = () => {
                   ),
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton onClick={handleClickShowConfirmPassword} edge="end">
-                        {formData.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                      <IconButton
+                        onClick={handleClickShowConfirmPassword}
+                        edge="end"
+                      >
+                        {formData.showConfirmPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
                       </IconButton>
                     </InputAdornment>
                   ),
