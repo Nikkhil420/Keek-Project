@@ -87,8 +87,7 @@ const SignUp = () => {
       ...formData,
       email: value,
     });
-    // Enable Send OTP button if email is valid
-    // For simplicity, checking if value includes "@" as a basic validation
+
     setOtpSent(false); // Reset OTP status
     setIsVerified(false); // Reset verification status
   };
@@ -200,11 +199,11 @@ const SignUp = () => {
       <div className="h-screen w-[100%] relative">
         <LoginCarousel slides={slides} autoSlide={true} />
       </div>
-      <div className="w-full md:w-[61%] p-10">
+      <div className="w-full md:w-[61%] p-8">
         <h2 className="text-5xl font-bold mb-4 text-left text-blue-600 font-serif">
           Keek
         </h2>
-        <div className="flex flex-col space-y-4 mb-6">
+        <div className="flex flex-col space-y-4 mb-4">
           <Button
             variant="outlined"
             className="flex items-center justify-center w-full"
@@ -258,93 +257,90 @@ const SignUp = () => {
             </div>
           </div>
           <div className="mb-1">
-            <label
-              className="block text-left text-gray-700 mb-2"
-              htmlFor="email"
+      <label className="block text-left text-gray-700 mb-2" htmlFor="email">
+        Email
+      </label>
+      <div className={`relative ${isVerified ? 'border-green-800' : ''}`}>
+        <TextField
+          size="small"
+          id="email"
+          name="email"
+          type="email"
+          placeholder="john.doe@gmail.com"
+          variant="outlined"
+          fullWidth
+          value={formData.email}
+          onChange={handleEmailChange}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <FaEnvelope />
+              </InputAdornment>
+            ),
+          }}
+          required
+          disabled={otpSent}
+        />
+        { !isVerified ? 
+        <button
+          onClick={sendOtp}
+          className={`absolute inset-y-0 right-0 px-4 flex items-center border-l border-gray-300 opacity-50 ${
+            formData.email && !otpSent && 'opacity-100'
+          }`}
+          disabled={!formData.email || otpSent}
+        >
+          Send OTP
+        </button> : <div
+          className={`absolute text-green-500 inset-y-0 right-0 px-4 flex items-center border-l border-gray-300 opacity-50`}
+          disabled={!formData.email || otpSent}
+        >
+          Verified
+        </div>
+        }
+      </div>
+
+      {otpSent && !isVerified && (
+        <div className="my-2">
+        
+          <div className={`relative ${isVerified ? 'border-green-300' : ''}`}>
+            <input
+              className={`border rounded-md pl-10 w-full py-2 ${
+                isVerified ? 'border-green-300' : ''
+              }`}
+              type={`${showOtp ? 'text' : 'password'}`}
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={handleOtpChange}
+              disabled={!otpSent}
+            />
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <FiKey className="rotate-90 opacity-50" />
+            </div>
+            <div
+              onClick={() => {
+                setShowOtp(!showOtp);
+              }}
+              className="absolute inset-y-0 right-20 pl-3 flex items-center cursor-pointer"
             >
-              Email
-            </label>
-            <div className={`relative  `}>
-              <TextField
-              className={`${isVerified ? "border-green-800" : ""}`}
-                size="small"
-                id="email"
-                name="email"
-                type="email"
-                placeholder="john.doe@gmail.com"
-                variant="outlined"
-                fullWidth
-                value={formData.email}
-                onChange={handleEmailChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <FaEnvelope />
-                    </InputAdornment>
-                  ),
-                }}
-                required
-                disabled={otpSent}
-              />
-              <button
-                onClick={sendOtp}
-                className={`absolute inset-y-0 right-0 px-4 flex items-center border-l border-gray-300 opacity-50  ${formData.email &&
-                  !otpSent &&
-                  "opacity-100"}`}
-                disabled={!formData.email || otpSent}
-              >
-                Send OTP
-              </button>
+              {showOtp ? (
+                <BsEyeSlash className="text-2xl opacity-50" />
+              ) : (
+                <IoEyeOutline className="text-2xl opacity-50" />
+              )}
             </div>
-
-            <div className="my-2">
-              <label
-                className="block text-left text-gray-700 mb-2"
-                htmlFor="verifyOTP"
-              >
-                Verify OTP
-              </label>
-              <div className={`relative ${isVerified ? "border-green-300" : ""}`}>
-                <input
-                  className={`border-2 rounded-md pl-10 w-full py-2 ${
-                    isVerified ? "border-green-900" : "border-red-900"
-                  }`}
-                  type={`${showOtp ? "text" : "password"}`}
-                  placeholder="Enter OTP"
-                  value={otp}
-                  onChange={handleOtpChange}
-                  disabled={!otpSent}
-                />
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiKey className="rotate-90 opacity-50" />
-                </div>
-                <div
-                  onClick={() => {
-                    setShowOtp(!showOtp);
-                  }}
-                  className="absolute inset-y-0 right-20 pl-3 flex items-center cursor-pointer"
-                >
-                  {showOtp ? (
-                    <BsEyeSlash className="text-2xl opacity-50" />
-                  ) : (
-                    <IoEyeOutline className="text-2xl opacity-50" />
-                  )}
-                </div>
-                <button
-                  onClick={verifyOtp}
-                  className={`absolute inset-y-0 right-0 px-4 flex items-center border-l border-gray-300 opacity-50 ${otp &&
-                     otpSent &&
-                    "opacity-100"} ${
-                    otp === generatedOtp ? "border-green  " : "border-red"
-                  }`}
-                  disabled={!otp || isVerified}
-                >
-                  Verify
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={verifyOtp}
+              className={`absolute inset-y-0 right-0 px-4 flex items-center border-l border-gray-300 opacity-50 ${
+                otp && otpSent && 'opacity-100'
+              } ${otp === generatedOtp ? 'border-green' : ''}`}
+              disabled={!otp || isVerified}
+            >
+              Verify
+            </button>
           </div>
-
+        </div>
+      )}
+    </div>
           <div className="mb-2">
             <label
               className="block text-left text-gray-700 mb-2"
