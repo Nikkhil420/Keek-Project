@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoginCarousel from './LoginSignUpPage/LoginCarousel/LoginCarousel';
-import { FaMobileAlt } from "react-icons/fa";
+import { FaMobileAlt , FaUser } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { BsEyeSlash } from "react-icons/bs";
 import { FiKey } from "react-icons/fi"; 
 
-const LoginMobile = () => {
+const SignUpMobile = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState(""); 
   const [showOtp, setShowOtp] = useState(false); 
@@ -65,13 +65,24 @@ const LoginMobile = () => {
           <h1 className="text-5xl font-bold text-blue-600 font-serif mt-8">
             Keek
           </h1>
-          <h2 className="mt-4 font-bold">Login with your Mobile Number</h2>
-          <h2 className="opacity-75 mb-4">Please enter your Mobile Number</h2>
-          <div className="mb-3">
+          <h2 className="mt-4 font-bold">Sign up with your Mobile Number</h2>
+          <h2 className="opacity-75 mb-4">Please enter your Name and Mobile Number</h2>
+          <div className="mb-2">
             
-         
+          <div>Name</div>
+            <div className="relative mb-3">
+              <input
+                className="w-full pl-10 pr-4 py-2 border rounded-lg"
+                type="text"
+                placeholder="Enter Your Name"
+                maxLength={35} 
+              />
+              <div className="absolute inset-y-0 left-0  flex items-center pointer-events-none">
+              <FaUser className="inline-block mx-2 text-lg opacity-50" />
+              </div>
+            </div>
            <div>Mob. Number</div>
-            <div className="relative">
+            <div className="relative mb-3">
               <input
                 className="w-full pl-10 pr-4 py-2 border rounded-lg"
                 type="text"
@@ -146,4 +157,4 @@ const LoginMobile = () => {
   );
 }
 
-export default LoginMobile;
+export default SignUpMobile;

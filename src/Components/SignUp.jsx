@@ -212,7 +212,7 @@ const SignUp = () => {
           >
             Continue with Google
           </Button>
-          <Link to={"/Login_Mobile"}>
+          <Link to={"/SignUp_Mobile"}>
             <Button
               startIcon={<FaMobileAlt style={{ color: "grey" }} />}
               variant="outlined"
@@ -330,12 +330,12 @@ const SignUp = () => {
             </div>
             <button
               onClick={verifyOtp}
-              className={`absolute inset-y-0 right-0 px-4 flex items-center border-l border-gray-300 opacity-50 ${
+              className={`absolute inset-y-0 right-0 px-8 flex items-center  border-gray-300 opacity-50 ${
                 otp && otpSent && 'opacity-100'
               } ${otp === generatedOtp ? 'border-green' : ''}`}
               disabled={!otp || isVerified}
             >
-              Verify
+               Verify
             </button>
           </div>
         </div>
