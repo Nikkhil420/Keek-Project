@@ -99,7 +99,7 @@ const LoginMobile = () => {
                 <input
                   className="border rounded-md pl-10 w-full py-2"
                   type={`${showOtp ? "text" : "password"}`}
-                  placeholder="Enter OTP"
+                  placeholder="Enter OTP."
                   value={otp}
                   onChange={handleOtpChange}
                   disabled={!otpSent} 
