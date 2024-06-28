@@ -104,7 +104,7 @@ const LoginMobile = () => {
                   onChange={handleOtpChange}
                   disabled={!otpSent} 
                 />
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0    left-0 pl-3 flex items-center pointer-events-none">
                   <FiKey className="rotate-90 opacity-50" />
                 </div>
                 <div
